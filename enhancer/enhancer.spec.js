@@ -1,84 +1,79 @@
-const { repair } = require('./enhancer.js');
-
-
-
-// it('repairs to full durability', () => {
-//   const item = {
-//     name: 'Lambda Shield',
-//     durabily: 98,
-//     displayName: '[+3] Lambda Shield',
-//   };
-
-//   const expected = {
-//     name: 'Lambda Shield',
-//     durabily: 100,
-//     displayName: '[+3] Lambda Shield',
-//   };
-
-//   // expect(enhancer.repair(item)).toEqual(expected)
-//   expect(repair({ durability: 43 }).durability).toBe(100);
-// });
+const { repair, success } = require('./enhancer.js');
 
 
 describe('enhancer.js', () => {
 
     // testing items
     const testItem01 = {
-        basename: 'Lambda Shield',
-        name: '[+7] Lambda Shield',
+        baseName: 'Lambda Shield',
+        displayName: '[+7] Lambda Shield',
         type: 'armor',
-        durability: '50',
-        enhancement: '7',
+        durability: 50,
+        enhancement: 7,
     };
 
     const testItem02 = {
-        basename: 'Redux Cloak',
-        name: '[TET] Redux Cloak',
+        baseName: 'Redux Cloak',
+        displayName: '[TET] Redux Cloak',
         type: 'armor',
-        durability: '5',
-        enhancement: '19',
+        durability: 5,
+        enhancement: 19,
     };
 
     const testItem03 = {
-        basename: 'Sword of Javascript',
-        name: '[DUO] Sword of Javascript',
+        baseName: 'Sword of Javascript',
+        displayName: '[DUO] Sword of Javascript',
         type: 'weapon',
-        durability: '82',
-        enhancement: '17',
+        durability: 82,
+        enhancement: 17,
     };
 
     const testItem04 = {
-        basename: 'CSS Stone',
-        name: 'CSS Stone',
+        baseName: 'CSS Stone',
+        displayName: 'CSS Stone',
         type: 'weapon',
-        durability: '100',
-        enhancement: '0',
+        durability: 100,
+        enhancement: 0,
     };
 
 
+    describe('success() method', () => {
+
+        // Act - run SUT (System Under Test)
+        const actual01 = success(testItem01);
+        const actual02 = success(testItem02);
+        const actual03 = success(testItem03);
+        const actual04 = success(testItem04);
+
+        it('should increase the item\'s enhancement +1. Max 20', () => {
+
+            //assert
+            expect(actual01.enhancement).toBe(8); // assertion
+        });
 
 
 
+
+    });
 
 
     describe('repair() method', () => {
 
         // Act - run SUT (System Under Test)
         const actual01 = repair(testItem01);
+        const actual02 = repair(testItem02);
+        const actual03 = repair(testItem03);
+        const actual04 = repair(testItem04);
 
 
         it('should only change durability to 100', () => {
 
             // assert
             expect(actual01.durability).toBe(100); // assertion
+            expect(actual02.durability).toBe(100); // assertion
+            expect(actual03.durability).toBe(100); // assertion
+            expect(actual04.durability).toBe(100); // assertion
         });
-
-
-
-
-
-
-
 
     });
 
